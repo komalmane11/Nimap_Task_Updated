@@ -1,0 +1,28 @@
+﻿@model ProductTask.Models.Product
+
+@{
+    ViewBag.Title = "Edit Product";
+}
+
+<h2>Edit Product</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label for="ProductName">Product Name</label>
+        <input type="text" class="form-control" id="ProductName" name="ProductName" value="@Model.ProductName" required />
+    </div>
+
+    <div class="form-group">
+        <label for="CategoryId">Category</label>
+        <select class="form-control" id="CategoryId" name="CategoryId">
+            @foreach (var category in ViewBag.Categories as SelectList)
+            {
+                <option> value="@category.Value" @(category.Value == Model.CategoryId.ToString() ? "selected" : "")
+                    @category.Text
+                </option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>

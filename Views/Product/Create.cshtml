@@ -1,0 +1,41 @@
+﻿@model ProductTask.Models.Product
+
+@{
+    ViewBag.Title = "Create Product";
+}
+
+<h2>Create Product</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label for="ProductName">Product Name</label>
+        <input type="text" class="form-control" id="ProductName" name="ProductName" value="@Model.ProductName" required />
+        @if (ViewData.ModelState["ProductName"]?.Errors.Count > 0)
+        {
+            <span class="text-danger">@ViewData.ModelState["ProductName"].Errors[0].ErrorMessage</span>
+        }
+    </div>
+
+    <div class="form-group">
+        <label for="CategoryId">Category</label>
+        <ul class="list-group">
+            @foreach (var category in ViewBag.Categories as SelectList)
+            {
+                <li class="list-group-item">
+                    <input type="radio" id="Category_@category.Value" name="CategoryId" value="@category.Value"
+                    @(category.Value == Model.CategoryId.ToString() ? "checked" : "") />
+                    <label for="Category_@category.Value">@category.Text</label>
+                </li>
+            }
+        </ul>
+        @if (ViewData.ModelState["CategoryId"]?.Errors.Count > 0)
+        {
+            <span class="text-danger">@ViewData.ModelState["CategoryId"].Errors[0].ErrorMessage</span>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+<!-- Back to Product List Button -->
+<a href="@Url.Action("Index", "Product")" class="btn btn-secondary mt-2">Back to Product List</a>
